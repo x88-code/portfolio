@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <h1>Welcome to My Portfolio</h1>
+    </header>
+
+    <!-- About Me Section -->
+    <section id="about">
+        <h2>About Me</h2>
+        <p>Hello! I'm an Information Technology student at Tom Mboya University, passionate about networking, programming, and version control. I enjoy exploring new technologies and working on exciting projects.</p>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education">
+        <h2>Education Background</h2>
+        <p><strong>Tom Mboya University</strong> - Bachelor of Science in Information Technology</p>
+        <p><a href="Erick_Kiptoo_Kirui_CV.pdf" download class="btn">Download CV</a></p>
+    </section>
+
+    <!-- Interests Section -->
+    <section id="interests">
+        <h2>My Interests</h2>
+        <ul>
+            <li>Cybersecurity & Networking</li>
+            <li>Software Development</li>
+            <li>Music Production & Beat Making</li>
+            <li>Open-Source Projects</li>
+        </ul>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills-section">
+        <h2>My Skills</h2>
+        <div class="skills-container" id="skills-list"></div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <h2>My Projects</h2>
+        <p>Coming Soon...</p>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <form action="mailto:xgh@gmail.com" method="post" enctype="text/plain">
+            <div>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" value="Byte Boss" required>
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" value="xgh@gmail" required>
+            </div>
+            <div>
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="2" required></textarea>
+            </div>
+            <div>
+                <button type="submit" class="btn">Send Message</button>
+            </div>
+        </form>
+    </section>
+
+    <script>
+        fetch("http://localhost:5000/api/skills")
+            .then(response => response.json())
+            .then(data => {
+                const skillsList = document.getElementById("skills-list");
+                data.forEach(skill => {
+                    let skillCard = document.createElement("div");
+                    skillCard.classList.add("skill-card");
+                    skillCard.innerHTML = `
+                        <h3>${skill.skill_name}</h3>
+                        <p>Level: <span class="level">${skill.skill_level}</span></p>
+                        <p>Category: <span class="category">${skill.category}</span></p>
+                    `;
+                    skillsList.appendChild(skillCard);
+                });
+            })
+            .catch(error => console.error("Error fetching skills:", error));
+    </script>
+
+</body>
+</html>
+
